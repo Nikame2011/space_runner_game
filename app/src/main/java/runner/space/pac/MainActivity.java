@@ -65,45 +65,47 @@ import java.util.Date;
  */
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
+
     public static boolean flying=false;
     public static boolean setup=false;
-    public static int update=-1;
-    public static ImageButton Fly;
+
+//    public static int update=-1;
+    //public static ImageButton Fly;
     //public static ImageButton Setup;
 
     public  static String game_mode ="hard";
-    public static ImageButton Reward;
+//   public static ImageButton Reward;
 
-    public static ImageButton Ask_yes;
+/*    public static ImageButton Ask_yes;
     public static ImageButton Ask_no;
     ConstraintLayout Ask_l;
     ImageView Ask_image;
-
+*/
 
 
     public static int dw,dh;
-    public static boolean testing=false;//true;
+    //public static boolean testing=false;//true;
     public static GameView gw;
-    public static Date first_date;
-    public static boolean quick_down=false;
+   // public static Date first_date;
+    //public static boolean quick_down=false;
     public static boolean new_game=false;
 
-    public static boolean energy_show=false;
-    public static float end=0;
+   // public static boolean energy_show=false;
+   // public static float end=0;
     //public AdRequest adRequest;
     public static Context cont;
-    public static String version="0.1.2.0";
+    public static String version="0.0.0.0";
 
     //public static RewardedAd mRewardedAd;
     //private final String TAG = "MainActivity";
 
-    public static byte ask_number;
+ /*   public static byte ask_number;
     public static String[] ask_status;
     public static String[] ask_savedstatus;
     private byte shure=-1;
     TextView ask;
     TextView ask_no;
-    TextView ask_yes;
+    TextView ask_yes;*/
     //private boolean need_rew=true;
     //private int rew_error=0;
 
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         setContentView(R.layout.activity_main);
         dw= getResources().getDisplayMetrics().widthPixels;//получаем ширину экрана
         dh= getResources().getDisplayMetrics().heightPixels;//получаем ширину экрана
-        first_date=new Date();
+        //first_date=new Date();
 
         //setContentView(R.layout.activity_main);
         cont=this;
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         gameLayout.addView(gw); // и добавляем в него gameView
 
-        Fly = (ImageButton ) findViewById(R.id.B1);
+    /*    Fly = (ImageButton ) findViewById(R.id.B1);
         //Setup = (ImageButton ) findViewById(R.id.B2);
 
         Reward = (ImageButton) findViewById(R.id.Reward);
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         ask_savedstatus=new String[]{"NON","NON","NON","NON","NON","NON","NON","RTF","RTF","RTF","UPD","UPD"};
         byte ask_stop= (byte) ask_status.length;
 
-
+*/
 
 
         //if(MainActivity.update!=-1){
@@ -194,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
         //Setup.setOnTouchListener(this);
-
+/*
         Reward.setOnTouchListener(this);
 
         Ask_yes.setOnTouchListener(this);
@@ -202,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         Ask_l=findViewById(R.id.ask_layout);
         Ask_l.setVisibility(View.INVISIBLE);
-
+*/
 /*
        MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -365,9 +367,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
 
-    public short ads_timeout=0;
-public static boolean ask_on=false;
-
+//    public short ads_timeout=0;
+//public static boolean ask_on=false;
+/*
 private void set_ask(){
         ask_on=true;
     TableRow.LayoutParams l;
@@ -503,7 +505,7 @@ private void set_ask(){
     Ask_l.setVisibility(View.VISIBLE);
 
 }
-
+*/
     @Override
     protected void onPause() {
         super.onPause();
@@ -690,7 +692,7 @@ private void set_ask(){
                 }
                 break;*/
             case R.id.ask_stop_b:
-                switch (motion.getAction()) { // определяем нажата или отпущена
+                /*switch (motion.getAction()) { // определяем нажата или отпущена
                     case MotionEvent.ACTION_DOWN:
                         break;
                     case MotionEvent.ACTION_UP:
@@ -712,7 +714,7 @@ private void set_ask(){
                         }
                         break;
                 }
-
+*/
                 break;
             case R.id.ask_select_b:
               /*  switch (motion.getAction()) { // определяем нажата или отпущена

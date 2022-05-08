@@ -71,7 +71,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnTouchLis
         Shure_lo=findViewById(R.id.shure_layout_0);
         Shure_lo.setVisibility(View.INVISIBLE);
         Settings_lo=findViewById(R.id.settings_layout_0);
-        if (MainActivity.quick_down==true){
+       /* if (MainActivity.quick_down==true){
             //Down_toggle.setChecked(true);
 
             S_F_text.setText(MainActivity.cont.getString(R.string.toggle_down_1));
@@ -79,7 +79,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnTouchLis
         else {
             //Down_toggle.setChecked(false);
             S_F_text.setText(MainActivity.cont.getString(R.string.toggle_down_0));
-        }
+        }*/
     }
 
     @Override
@@ -127,7 +127,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnTouchLis
 
                 break;
             case R.id.ib_ask_brok:
-                switch (motion.getAction()) { // определяем нажата или отпущена
+                /*switch (motion.getAction()) { // определяем нажата или отпущена
                     case MotionEvent.ACTION_DOWN:
                         TV_shure.setText(R.string.ask_brok);
                         get_shure();
@@ -154,7 +154,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnTouchLis
 
                         break;
                 }
-
+*/
                 break;
             case R.id.yes:
                 switch (motion.getAction()) { // определяем нажата или отпущена

@@ -55,7 +55,7 @@ public class TrainingFragment extends Fragment implements View.OnTouchListener, 
 
 
                 if (MainActivity.setup) /*if (update == -1)*/{
-                    MainActivity.Fly.setImageResource(R.drawable.b1);
+                    //MainActivity.Fly.setImageResource(R.drawable.b1);
                     //Setup.setImageResource(R.drawable.b2);
                     //Setup.setBackgroundResource(R.drawable.upgrade_menu);
                     //Setup.setBackgroundResource(R.drawable.b2);
@@ -65,7 +65,7 @@ public class TrainingFragment extends Fragment implements View.OnTouchListener, 
                     //Up_jump.setVisibility(View.INVISIBLE);
                     //Up_energy.setVisibility(View.INVISIBLE);
                     //Reward.setVisibility(View.INVISIBLE);
-                    MainActivity.Fly.setVisibility(View.VISIBLE);
+                    //MainActivity.Fly.setVisibility(View.VISIBLE);
                     //Reward.setVisibility(View.INVISIBLE);
                     //Fly.setVisibility(View.VISIBLE);
                  /*   if (MainActivity.gw.pen.status == "STF"){

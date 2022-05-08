@@ -65,11 +65,13 @@
         android:background="#D0FFFFFF"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
         android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/GL">
+        app:layout_constraintTop_toTopOf="@+id/GL"
+        tools:visibility="gone">
 
         <TableLayout
             android:layout_width="match_parent"
