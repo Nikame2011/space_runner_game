@@ -826,7 +826,7 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
                     Matrix matrix = matrix_stars.get(ind);
                     matrix.reset();
 //player.x%(dw+dh)+dw+dh
-                    matrix.setTranslate((star[0] - off_x) % (dd) - dh / 2, (star[1] - off_y) % (dd) - dw / 4);
+                    matrix.setTranslate((star[0] - off_x) % (dd) - dh / 2, (star[1] - off_y) % (dd) /*+ dw / 4*/);
 
                     //matrix.preRotate(angle, body.getWidth()/2, body.getHeight()/2);
                     matrix.postRotate(-angle, player.x  - offset_x, player.y  - offset_y);
