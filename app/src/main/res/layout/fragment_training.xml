@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#85FFFFFF"
+    tools:context=".TrainingFragment">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/imb" />
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL_buttons_training"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+        <ImageButton
+            android:id="@+id/Up_jump"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/jmp_2_5"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/Up_concentration"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="148dp"
+            android:background="@drawable/fl_u_0"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/Up_energy"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="276dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/up_energy"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/Up_fly"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/jmp_2"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL_buttons_training_2"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CL_buttons_training">
+
+        <ImageButton
+            android:id="@+id/Training2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/b2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test_tw" />
+
+        <ImageButton
+            android:id="@+id/Training1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="24dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/b2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test_tw" />
+
+        <ImageButton
+            android:id="@+id/Training3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="292dp"
+            android:layout_marginTop="24dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/b2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test_tw" />
+
+        <TextView
+            android:id="@+id/test_tw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL_buttons_training_3"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CL_buttons_training_2"
+        app:layout_constraintVertical_bias="0.035">
+
+        <TextView
+            android:id="@+id/TV_training_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/Strt_training"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="84dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/imb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
