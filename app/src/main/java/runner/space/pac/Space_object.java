@@ -250,7 +250,7 @@ angle-= 360;
 
         float draw_x=x-offset_x-body.getWidth()/2;
         float draw_y=y-offset_y-body.getHeight()/2;
-        if (draw_x>=-MainActivity.dw & draw_x<=2*MainActivity.dw & draw_y>=-MainActivity.dw & draw_y<=2*MainActivity.dh)
+        if (draw_x+body.getWidth()/2>=-MainActivity.dw & draw_x-body.getWidth()/2<=2*MainActivity.dw & draw_y+body.getHeight()/2>=-MainActivity.dw & draw_y<=2*MainActivity.dh-body.getHeight()/2)
         {
             Matrix matrix = new Matrix();
             matrix.setTranslate(draw_x, draw_y);
