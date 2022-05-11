@@ -715,7 +715,7 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
     }
 
 
-    int dop_inc=0;
+    int dop_inc=1;
     private void control() { // пауза и контроль количества кадров
        /*try {
             gameThread.sleep(12);
@@ -728,7 +728,8 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
             frames= (byte) (tick*1000/(float) (d.getTime() - control_date.getTime()));
             control_date = new Date();
             tick=0;
-            increment= Math.max(increment * frames / 60, 1);
+            dop_inc=increment * frames>60?60/((increment * frames) % 60):0;
+            increment=Math.max(increment * frames / 60, 1);
 
 
             /*if (cadres-frames>cadres/6)
@@ -751,7 +752,13 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
         //   }
 
         try {
-            gameThread.sleep(increment);
+            if(dop_inc!=0){
+                if(tick%dop_inc==0)
+                    gameThread.sleep(increment*2);
+                else
+                    gameThread.sleep(increment);}
+            else
+                gameThread.sleep(increment);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

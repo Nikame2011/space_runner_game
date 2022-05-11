@@ -8,7 +8,7 @@ import android.graphics.Paint;
 
 import java.util.Random;
 
-import runner.space.pac.R;
+//import runner.space.pac.R;
 
 public class Space_ship extends Space_object{
     Bitmap fire_b;
@@ -112,36 +112,39 @@ float targ_angle=0;
                 accel_x=Math.abs((speed_x*cos+speed_y*sin)/(35))>0.0005?-(speed_x*cos+speed_y*sin)/(35):0;
         }
         if (accel_y==0){
-            accel_y=(speed_y*cos-speed_x*sin)/(35)>0.0005?-(speed_y*cos-speed_x*sin)/(35):0;
+            if ((speed_y*cos-speed_x*sin)/(35)>0.0005)
+                accel_y=-(speed_y*cos-speed_x*sin)/(35);
+            else if((speed_y*cos-speed_x*sin)<-max_speed*0.6)
+                accel_y=-(speed_y*cos-speed_x*sin)/(35);
         }
     }
 
 
     @Override
-    void update(byte speed_coef) {
+    void update(byte speed_coefficient) {
         float aan= (float) Math.toRadians(targ_angle);
         float cos= (float) Math.cos(aan);
         float sin= (float) Math.sin(aan);
 
-        if(Math.sqrt(Math.pow(speed_x-accel_y*sin*speed_coef,2)+Math.pow(speed_y+accel_y*cos*speed_coef,2))<=max_speed){
-            speed_x+=-accel_y*sin*speed_coef;
-            speed_y+=accel_y*cos*speed_coef;
+        if(Math.sqrt(Math.pow(speed_x-accel_y*sin*speed_coefficient,2)+Math.pow(speed_y+accel_y*cos*speed_coefficient,2))<=max_speed){
+            speed_x+=-accel_y*sin*speed_coefficient;
+            speed_y+=accel_y*cos*speed_coefficient;
         }
         else
         {
             accel_y=0;
         }
-        if(Math.sqrt(Math.pow(speed_x+accel_x*cos*speed_coef,2)+Math.pow(speed_y+accel_x*sin*speed_coef,2))<=max_speed){
-            speed_x+=accel_x*cos*speed_coef;
-            speed_y+=accel_x*sin*speed_coef;
+        if(Math.sqrt(Math.pow(speed_x+accel_x*cos*speed_coefficient,2)+Math.pow(speed_y+accel_x*sin*speed_coefficient,2))<=max_speed){
+            speed_x+=accel_x*cos*speed_coefficient;
+            speed_y+=accel_x*sin*speed_coefficient;
         }
         else
         {
             accel_x=0;
         }
-        x+=speed_x*speed_coef;
-        y+=speed_y*speed_coef;
-        angle+=speed_angle*speed_coef;
+        x+=speed_x*speed_coefficient;
+        y+=speed_y*speed_coefficient;
+        angle+=speed_angle*speed_coefficient;
 
         if (angle>360){
             angle-= 360;

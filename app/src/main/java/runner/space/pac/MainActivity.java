@@ -66,297 +66,47 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
 
-    public static boolean flying=false;
     public static boolean setup=false;
 
-//    public static int update=-1;
-    //public static ImageButton Fly;
-    //public static ImageButton Setup;
-
     public  static String game_mode ="hard";
-//   public static ImageButton Reward;
-
-/*    public static ImageButton Ask_yes;
-    public static ImageButton Ask_no;
-    ConstraintLayout Ask_l;
-    ImageView Ask_image;
-*/
-
 
     public static int dw,dh;
-    //public static boolean testing=false;//true;
+
     public static GameView gw;
-   // public static Date first_date;
-    //public static boolean quick_down=false;
+
     public static boolean new_game=false;
 
-   // public static boolean energy_show=false;
-   // public static float end=0;
-    //public AdRequest adRequest;
     public static Context cont;
     public static String version="0.0.0.0";
 
-    //public static RewardedAd mRewardedAd;
-    //private final String TAG = "MainActivity";
-
- /*   public static byte ask_number;
-    public static String[] ask_status;
-    public static String[] ask_savedstatus;
-    private byte shure=-1;
-    TextView ask;
-    TextView ask_no;
-    TextView ask_yes;*/
-    //private boolean need_rew=true;
-    //private int rew_error=0;
+    public static String Active_menu="Main";
+    private AppBarConfiguration appBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        cont=this;
         dw= getResources().getDisplayMetrics().widthPixels;//получаем ширину экрана
         dh= getResources().getDisplayMetrics().heightPixels;//получаем ширину экрана
-        //first_date=new Date();
-
-        //setContentView(R.layout.activity_main);
-        cont=this;
 
         gw= new GameView(this);
+
         ConstraintLayout gameLayout=(ConstraintLayout) findViewById(R.id.GL); // находим gameLayout
-        ConstraintLayout.LayoutParams l=(ConstraintLayout.LayoutParams) gameLayout.getLayoutParams();
+       /* ConstraintLayout.LayoutParams l=(ConstraintLayout.LayoutParams) gameLayout.getLayoutParams();
         l.height=dh;
         l.width=dw;
-        gameLayout.setLayoutParams(l);
+        gameLayout.setLayoutParams(l);*/
 
         gameLayout.addView(gw); // и добавляем в него gameView
 
-    /*    Fly = (ImageButton ) findViewById(R.id.B1);
-        //Setup = (ImageButton ) findViewById(R.id.B2);
-
-        Reward = (ImageButton) findViewById(R.id.Reward);
-
-        Ask_yes = (ImageButton) findViewById(R.id.ask_select_b);
-        Ask_no = (ImageButton) findViewById(R.id.ask_stop_b);
-        Ask_image=findViewById(R.id.iv_ask);
-
-        ask=(TextView) findViewById(R.id.ask_tv);
-        ask_no=(TextView) findViewById(R.id.ask_stop_tv);
-        ask_yes=(TextView) findViewById(R.id.ask_select_tv);
-
-        ConstraintLayout.LayoutParams par= (ConstraintLayout.LayoutParams)Fly.getLayoutParams();
-        par.width=dw/4;
-        par.height=dw/4;
-        par.rightMargin =dw/100;
-        par.bottomMargin=dw*3/100+dw/4;
-        Fly.setLayoutParams (par);
-
-
-
-        par= (ConstraintLayout.LayoutParams)Reward.getLayoutParams();
-        par.width=dw/4;
-        par.height=dw/4;
-        par.leftMargin=dw/100;
-        par.bottomMargin=dw*3/100+dw/4;
-        Reward.setLayoutParams(par);
-
-
-        SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.quick_down=myPreferences.getBoolean("Config.quick_down", false);
-        MainActivity.update=myPreferences.getInt("update", -1);
-        MainActivity.ask_number=(byte) myPreferences.getInt("ask_number", 0);
-
-        ask_status=new String[]{"RTF","RTF","RTF","GTF","FLU","RCV","RTF","STF","STF","STF","STF","STF"};
-        ask_savedstatus=new String[]{"NON","NON","NON","NON","NON","NON","NON","RTF","RTF","RTF","UPD","UPD"};
-        byte ask_stop= (byte) ask_status.length;
-
-*/
-
-
-        //if(MainActivity.update!=-1){
-            //Fly.setImageResource(R.drawable.bust_training);
-            //Setup.setBackgroundResource(R.drawable.back_b);
-            //MainActivity.setup=true;
-            //if(mRewardedAd == null) Reward.setVisibility(View.INVISIBLE);
-
-            //Config.setVisibility(View.INVISIBLE);
-        //}
-        //else {
-          //  Up_fly.setVisibility(View.INVISIBLE);
-            // Up_jump.setVisibility(View.INVISIBLE);
-           // Up_energy.setVisibility(View.INVISIBLE);
-           // Reward.setVisibility(View.INVISIBLE);
-       // }
-
-
-
-
-        //Fly.setVisibility(View.VISIBLE);
-
-        //Fly.setOnTouchListener(this);
-
-
-
-        //Setup.setOnTouchListener(this);
-/*
-        Reward.setOnTouchListener(this);
-
-        Ask_yes.setOnTouchListener(this);
-        Ask_no.setOnTouchListener(this);
-
-        Ask_l=findViewById(R.id.ask_layout);
-        Ask_l.setVisibility(View.INVISIBLE);
-*/
-/*
-       MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        adRequest = new AdRequest.Builder().build();
-
-
-*/
-/*
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                while(gw.firstTime){
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                while(true){
-                    try {
-                        Thread.sleep(100);
-                        runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                if(gw.pen.bust>0 && !MainActivity.energy_show)MainActivity.energy_show=true;
-                                if(gw.pen.bust==0 && MainActivity.energy_show)MainActivity.energy_show=false;
-
-                                if (MainActivity.update==-1 && MainActivity.setup && MainActivity.Fly.getVisibility()==View.VISIBLE) {
-                                    try {
-                                        Thread.sleep(50);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                    MainActivity.Fly.setVisibility(View.INVISIBLE);
-                                  //  MainActivity.Reward.setVisibility(View.INVISIBLE);
-                                }
-
-                                if (MainActivity.setup && MainActivity.energy_show&& TrainingFragment.Up_energy.getVisibility()==View.INVISIBLE) {
-                                    TrainingFragment.Up_energy.setVisibility(View.VISIBLE);
-                                }
-
-                                if (MainActivity.setup ) {
-                                    if (gw.pen.savedstatus == "UPD") {
-                                        if (MainActivity.Fly.getVisibility() == View.INVISIBLE)
-                                            MainActivity.Fly.setVisibility(View.VISIBLE);
-
-                                    //    if (MainActivity.mRewardedAd != null) {
-                                          //  if (MainActivity.Reward.getVisibility() == View.INVISIBLE) {
-                                         //       MainActivity.Reward.setVisibility(View.VISIBLE);
-                                         //   }
-                                     //   } else {
-                                          //  if (MainActivity.Reward.getVisibility() == View.VISIBLE) {
-                                           //     MainActivity.Reward.setVisibility(View.INVISIBLE);
-                                          //  }
-                                        //}
-                                    } else{
-                                       // if (MainActivity.Reward.getVisibility() == View.VISIBLE) {
-                                        //    MainActivity.Reward.setVisibility(View.INVISIBLE);
-                                       // }
-                                    }
-                                }
-                                if(!ask_on)
-                                if (MainActivity.ask_number!=-1 &&  MainActivity.ask_number!=ask_stop){
-                                    if(shure==-1)
-                                    if (MainActivity.ask_status[MainActivity.ask_number]==gw.pen.status )
-                                        if (MainActivity.ask_savedstatus[MainActivity.ask_number]==gw.pen.savedstatus)
-                                        set_ask();
-                                }
-
-
-
-                                if(need_rew){
-                                    need_rew=false;
-                                    if (rew_error<100){
-                                        //reward_load();
-                                    }
-                                    //else {
-                                        //if (ads_timeout > 0) ads_timeout -= 1;
-                                        //else rew_error-=5;
-                                   // }
-
-                                }
-
-                                if(Active_menu=="Training") {
-                                    if (!TrainingFragment.moving){
-                                        double need_angle=(Math.PI*2+Math.PI*3/2-TrainingFragment.select_update*Math.PI*2/5)%(Math.PI*2);
-
-                                        if(TrainingFragment.grad!=need_angle) {
-
-                                            double rot;
-                                            if ((Math.PI*2+TrainingFragment.grad - need_angle)%(Math.PI*2)< Math.PI){
-
-                                                rot=-Math.PI * 1 / 10;
-
-                                            }
-                                            else {
-                                                rot=Math.PI * 1 / 10;
-
-                                            }
-
-                                            if (Math.abs(need_angle-TrainingFragment.grad)<=Math.PI * 1 / 10)
-                                            {
-                                                TrainingFragment.grad=need_angle;
-                                                TrainingFragment.set_visible_1();
-                                            }
-                                            else
-                                            {
-                                                TrainingFragment.grad +=rot;
-                                            }
-
-                                            if (TrainingFragment.grad>Math.PI*2)
-                                                TrainingFragment.grad-=Math.PI*2;
-                                            if (TrainingFragment.grad<0)
-                                                TrainingFragment.grad+=Math.PI*2;
-
-
-                                            TrainingFragment.rotator(0,0);
-                                        }
-
-                                    }
-                                }
-                            }
-                        });
-
-                    }
-                    catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        t.start();
-*/
-
-
-        //binding = ActivityMainBinding.inflate(getLayoutInflater());
-       // setContentView(binding.getRoot());
-
-        //setSupportActionBar(binding.toolbar);
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
     }
 
-    public static String Active_menu="Main";
-    private AppBarConfiguration appBarConfiguration;
-    //private ActivityMainBinding binding;
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -521,7 +271,7 @@ private void set_ask(){
     @Override
     public boolean onTouch(View button, MotionEvent motion) {
         switch(button.getId()) { // определяем какая кнопка
-            case R.id.B1:
+            /*case R.id.B1:
                 switch (motion.getAction()) { // определяем нажата или отпущена
                     case MotionEvent.ACTION_DOWN:
                         flying = true;
@@ -533,7 +283,7 @@ private void set_ask(){
                 }
 
 
-                break;
+                break;*/
             case R.id.B2:
                 switch (motion.getAction()) { // определяем нажата или отпущена
                     case MotionEvent.ACTION_DOWN:
