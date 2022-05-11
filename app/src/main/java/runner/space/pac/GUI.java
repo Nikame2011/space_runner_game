@@ -65,8 +65,7 @@ public class GUI {
             al+=180;
         canvas.drawText(/*con.getString(R.string.energy)+*/"Target: "+String.valueOf(target)/*String.valueOf(-target_y+player.y)+" / "+String.valueOf(target_x-player.x) +" / "+String.valueOf(al)*/,  dw / 8, dw/16 + dw / 200 +dw/30, paint);
 
-
-        canvas.drawText(/*con.getString(R.string.energy)+*/String.valueOf(gw.frames)+" / "+String.valueOf(gw.increment) , dw*2 / 3 , dw/16 + dw / 200 +dw*2/30, paint);
+        canvas.drawText(/*con.getString(R.string.energy)+*/"fps:"+String.valueOf(gw.frames)+" / "+String.valueOf(gw.increment) , dw*3 / 4 , dw/16 + dw / 200 +dw/30, paint);
 
         //yy= (float) (y_ac*Math.cos(angle)+x_ac*Math.sin(angle));
 

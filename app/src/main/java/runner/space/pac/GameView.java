@@ -714,6 +714,8 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
         }
     }
 
+
+    int dop_inc=0;
     private void control() { // пауза и контроль количества кадров
        /*try {
             gameThread.sleep(12);
@@ -727,6 +729,7 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
             control_date = new Date();
             tick=0;
             increment= Math.max(increment * frames / 60, 1);
+
 
             /*if (cadres-frames>cadres/6)
                 if(increment>1)
