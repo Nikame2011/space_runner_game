@@ -20,7 +20,7 @@ public class Space_station extends Space_object{
     Bitmap fire_f;*/
   public Space_station(Context context, byte ltype, int lheal, float lx, float ly, float lspeed_x, float lspeed_y) {
       super(context, ltype, lheal, lx, ly, lspeed_x, lspeed_y);
-      int bitmapId = R.drawable.runner_0;//f0;// определяем начальные параметры
+      int bitmapId = R.drawable.space_station;//f0;// определяем начальные параметры
       Bitmap cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
       body = Bitmap.createScaledBitmap(
               cBitmap, (int)(MainActivity.dw/(1-type)), (int)(MainActivity.dw/(1-type)), false);
