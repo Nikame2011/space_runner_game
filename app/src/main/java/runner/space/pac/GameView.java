@@ -4,14 +4,12 @@ import static runner.space.pac.MainActivity.dw;
 import static runner.space.pac.MainActivity.dh;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.preference.PreferenceManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -74,7 +72,7 @@ public class GameView extends SurfaceView implements Runnable{
     public static Space_ship player;
     private GUI gui;
 
-    ArrayList<Meteorid> met=new ArrayList<>();
+    ArrayList<Space_meteorite> met=new ArrayList<>();
     ArrayList<float[]> stars=new ArrayList<>();
     ArrayList<Matrix> matrix_stars=new ArrayList<>();
     ArrayList<Float[]> boom=new ArrayList<>();
@@ -232,18 +230,18 @@ public class GameView extends SurfaceView implements Runnable{
         gui=new GUI(getContext());
         offset_x=-dw/2;
         offset_y=-dh+dw/2;
-        player=new Space_ship();
-        player.init(getContext(),(byte) 0,300+rand.nextInt(200),0,0,0,0);
+        player=new Space_ship(getContext(),(byte) 0,300+rand.nextInt(200),0,0,0,0);
+        //player.init(getContext(),(byte) 0,300+rand.nextInt(200),0,0,0,0);
 
-        Space_station s= new Space_station();
-        s.init(getContext(), (byte) 0,100000,0,0,0,0);
+        Space_station s= new Space_station(getContext(), (byte) 0,100000,0,0,0,0);
+        //s.init(getContext(), (byte) 0,100000,0,0,0,0);
         stations.add(s);
 
         long target_y=-10000-rand.nextInt(1000);
         long target_x= (long) Math.sqrt(12000*12000-target_y*target_y);
 
-        s= new Space_station();
-        s.init(getContext(), (byte) 0,100000,target_x,target_y,0,0);
+        s= new Space_station(getContext(), (byte) 0,100000,target_x,target_y,0,0);
+        //s.init(getContext(), (byte) 0,100000,target_x,target_y,0,0);
         stations.add(s);
         target=stations.size()-1;
 
@@ -443,10 +441,10 @@ else        if (FirstFragment.moving) {
                 }
             }*/
             ArrayList<Integer> remove = new ArrayList<>();
-            ArrayList<Meteorid> creator = new ArrayList<>();
+            ArrayList<Space_meteorite> creator = new ArrayList<>();
             for (int ind = 0; ind < met.size(); ind++) {
 
-                Meteorid m = met.get(ind);
+                Space_meteorite m = met.get(ind);
 
                 m.update(speed_coef);
 
@@ -462,7 +460,7 @@ else        if (FirstFragment.moving) {
                         m.heal-=2;
                         m.speed_x+= (m.x-player.x)/500;
                         player.heal-=1;
-                        ArrayList<Meteorid> cr=m.crusher();
+                        ArrayList<Space_meteorite> cr=m.crusher();
                         if (cr.size()!=0) {
                             // for (Meteorid i : cr) {
                             //  creator.add(i);
@@ -482,7 +480,7 @@ else        if (FirstFragment.moving) {
 
             }
             if(creator.size()>0)
-                for (Meteorid i:creator)
+                for (Space_meteorite i:creator)
                 {
                     met.add(i);
                 }
@@ -548,9 +546,9 @@ else        if (FirstFragment.moving) {
         offset_y=player.y-dh+dw/2;
 
         ArrayList<Integer> remove = new ArrayList<>();
-        ArrayList<Meteorid> creator = new ArrayList<>();
+        ArrayList<Space_meteorite> creator = new ArrayList<>();
         for (int ind = 0; ind < met.size(); ind++) {
-            Meteorid m = met.get(ind);
+            Space_meteorite m = met.get(ind);
             m.update(speed_coef);
             if (m.far_away(-offset_x, -offset_y)) {
                 remove.add(ind);
@@ -564,7 +562,7 @@ else        if (FirstFragment.moving) {
                     m.heal-=2;
                     m.speed_x+= (m.x-player.x)/500;
                     player.heal-=1;
-                    ArrayList<Meteorid> cr=m.crusher();
+                    ArrayList<Space_meteorite> cr=m.crusher();
                     if (cr.size()!=0) {
                         // for (Meteorid i : cr) {
                         //  creator.add(i);
@@ -583,7 +581,7 @@ else        if (FirstFragment.moving) {
             }
         }
         if(creator.size()>0)
-            for (Meteorid i:creator)
+            for (Space_meteorite i:creator)
             {
                 met.add(i);
             }
@@ -639,7 +637,7 @@ else        if (FirstFragment.moving) {
                     m.draw(paint, canvas,offset_x,offset_y,0,player.x+dw/12,player.y+dw/12);
                 }*/
 
-                for (Meteorid m:met){
+                for (Space_meteorite m:met){
                     m.draw(paint, canvas,offset_x,offset_y,-angle,player.x/*+dw/12*/,player.y/*+dw/12*/);
                 }
                 Random rand=new Random();
@@ -781,13 +779,13 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
                     float spd_x = (float) ((player.x - pos_x) / 300+player.speed_x*1.0);
                     float spd_y = (float) ((player.y - pos_y) / 300+player.speed_y*1.0);
                     Random rand=new Random();
-                    Meteorid m0 = new Meteorid();
-                    m0.init(getContext(), (byte) 0, 500 + rand.nextInt(50), pos_x, pos_y, spd_x, spd_y);
+                    Space_meteorite m0 = new Space_meteorite(getContext(), (byte) 0, 500 + rand.nextInt(50), pos_x, pos_y, spd_x, spd_y);
+                    //m0.init(getContext(), (byte) 0, 500 + rand.nextInt(50), pos_x, pos_y, spd_x, spd_y);
                     met.add(m0);
 
                     for (int m=0; m<5+rand.nextInt(30);m++){
-                        m0=new Meteorid();
-                        m0.init(getContext(),(byte) 0,50+rand.nextInt(50),pos_x-dw/4+rand.nextInt(dw/2),pos_y-dw/4+rand.nextInt(dw/2),spd_x,spd_y);
+                        m0=new Space_meteorite(getContext(),(byte) 0,50+rand.nextInt(50),pos_x-dw/4+rand.nextInt(dw/2),pos_y-dw/4+rand.nextInt(dw/2),spd_x,spd_y);
+                        //m0.init(getContext(),(byte) 0,50+rand.nextInt(50),pos_x-dw/4+rand.nextInt(dw/2),pos_y-dw/4+rand.nextInt(dw/2),spd_x,spd_y);
                         met.add(m0);
                     }
                     b=false;

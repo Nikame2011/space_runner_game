@@ -1,5 +1,6 @@
 package runner.space.pac;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -16,9 +17,8 @@ public class Space_ship extends Space_object{
     Bitmap fire_l;
     Bitmap fire_f;
 
-    @Override
-    void init2() {
-        super.init2();
+    public Space_ship(Context context, byte ltype, int lheal, float lx, float ly, float lspeed_x, float lspeed_y){
+        super(context, ltype, lheal, lx, ly,lspeed_x, lspeed_y);
         int bitmapId = R.drawable.runner_0;//f0;// определяем начальные параметры
         Bitmap cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
         body = Bitmap.createScaledBitmap(
@@ -52,9 +52,49 @@ public class Space_ship extends Space_object{
         max_speed=30;
     }
 
+  /*  @Override
+    void init2() {
+        //super.init2();
+        int bitmapId = R.drawable.runner_0;//f0;// определяем начальные параметры
+        Bitmap cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
+        body = Bitmap.createScaledBitmap(
+                cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
+        cBitmap.recycle();
+
+        bitmapId = R.drawable.back_fire;//f0;// определяем начальные параметры
+        cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
+        fire_b= Bitmap.createScaledBitmap(
+                cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
+        cBitmap.recycle();
+
+        bitmapId = R.drawable.forward_fire;//f0;// определяем начальные параметры
+        cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
+        fire_f= Bitmap.createScaledBitmap(
+                cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
+        cBitmap.recycle();
+
+        bitmapId = R.drawable.left_fire;//f0;// определяем начальные параметры
+        cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
+        fire_l= Bitmap.createScaledBitmap(
+                cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
+        cBitmap.recycle();
+
+        bitmapId = R.drawable.right_fire;//f0;// определяем начальные параметры
+        cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
+        fire_r= Bitmap.createScaledBitmap(
+                cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
+        cBitmap.recycle();
+
+        max_speed=30;
+    }
+*/
     @Override
-    void draw_2(Paint paint, Canvas canvas,float draw_x,float draw_y,float attach_angle,float attach_x,float attach_y) {
-        super.draw_2(paint, canvas, draw_x,draw_y, attach_angle, attach_x, attach_y);
+   // void draw_2(Paint paint, Canvas canvas,float draw_x,float draw_y,float attach_angle,float attach_x,float attach_y) {
+     //   super.draw_2(paint, canvas, draw_x,draw_y, attach_angle, attach_x, attach_y);
+    void draw   (Paint paint, Canvas canvas, float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
+        super.draw   (paint, canvas, offset_x,offset_y,attach_angle,attach_x,attach_y);
+        float draw_x=x-offset_x-body.getWidth()/2;
+        float draw_y=y-offset_y-body.getHeight()/2;
         if(accel_x<0){
             Random rand=new Random();
             for (int i=0;i<5+rand.nextInt(5);i++) {

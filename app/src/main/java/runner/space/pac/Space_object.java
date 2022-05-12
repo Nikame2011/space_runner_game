@@ -141,8 +141,16 @@ public class Space_object {
     //Map<String, Double[]> legs2_grad= new HashMap<String, Double[]>();
 
 
-    public Space_object(){
-
+    public Space_object(Context context, byte ltype, int lheal, float lx, float ly,float lspeed_x, float lspeed_y){
+        con=context;
+        type=ltype;
+        max_heal =lheal;
+        heal=lheal;
+        x=lx;
+        y=ly;
+        speed_x=lspeed_x;
+        speed_y=lspeed_y;
+        size= (float) (heal/50.0);
         //dw=MainActivity.dw;
         //dh=MainActivity.dh;
         //con=context;
@@ -210,8 +218,8 @@ public class Space_object {
 
     }
 
-    void init(Context context, byte ltype, int lheal, float lx, float ly,float lspeed_x, float lspeed_y/*Context context, byte n_j, byte n_b, byte n_e, float rec,Date time,float tu */) {
-        con=context;
+ /*   void init(Context context, byte ltype, int lheal, float lx, float ly,float lspeed_x, float lspeed_y/*Context context, byte n_j, byte n_b, byte n_e, float rec,Date time,float tu *//*) {*/
+   /*     con=context;
         type=ltype;
         max_heal =lheal;
         heal=lheal;
@@ -220,12 +228,12 @@ public class Space_object {
         speed_x=lspeed_x;
         speed_y=lspeed_y;
         size= (float) (heal/50.0);
-init2();
-    }
+//init2();
+    }*/
 
-    void init2(){
+ /*   void init2(){
 
-    }
+    }*/
 
 
     void update(byte speed_coef) {
@@ -242,8 +250,6 @@ angle-= 360;
         else if (angle<-360){
             angle+= 360;
         }
-
-
     }
 
     void draw(Paint paint, Canvas canvas, float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
@@ -260,10 +266,34 @@ angle-= 360;
             canvas.drawBitmap(body, matrix, paint);
 
         }
-        draw_2(paint, canvas,draw_x,draw_y, attach_angle, attach_x-offset_x, attach_y-offset_y);
+       // draw_2(paint, canvas,draw_x,draw_y, attach_angle, attach_x-offset_x, attach_y-offset_y);
     }
-    void draw_2(Paint paint, Canvas canvas,float draw_x,float draw_y,float attach_angle,float attach_x,float attach_y) {
+  /*  void draw_2(Paint paint, Canvas canvas,float draw_x,float draw_y,float attach_angle,float attach_x,float attach_y) {
 
+    }*/
+
+    void alternate_draw(Paint paint, Canvas canvas/*, Matrix matrix*/){
+        if (matrix!=null){
+            canvas.drawBitmap(body, matrix, paint);
+        }
+    }
+    Matrix matrix;
+    //Matrix get_matrix(float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
+    void get_matrix(float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
+        float draw_x=x-offset_x-body.getWidth()/2;
+        float draw_y=y-offset_y-body.getHeight()/2;
+        if (draw_x+body.getWidth()/2>=-MainActivity.dw & draw_x-body.getWidth()/2<=2*MainActivity.dw & draw_y+body.getHeight()/2>=-MainActivity.dw & draw_y<=2*MainActivity.dh-body.getHeight()/2)
+        {
+            Matrix mat = new Matrix();
+            mat.setTranslate(draw_x, draw_y);
+
+            mat.preRotate(angle, body.getWidth()/2, body.getHeight()/2);
+            mat.postRotate(attach_angle, attach_x-offset_x, attach_y-offset_y);
+            matrix=mat;
+        }
+        else{
+            matrix=null;
+        }
     }
 
     boolean far_away(float offset_x,float offset_y){

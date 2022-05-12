@@ -1,5 +1,6 @@
 package runner.space.pac;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,15 +18,22 @@ public class Space_station extends Space_object{
     Bitmap fire_r;
     Bitmap fire_l;
     Bitmap fire_f;*/
-
-    @Override
+  public Space_station(Context context, byte ltype, int lheal, float lx, float ly, float lspeed_x, float lspeed_y) {
+      super(context, ltype, lheal, lx, ly, lspeed_x, lspeed_y);
+      int bitmapId = R.drawable.runner_0;//f0;// определяем начальные параметры
+      Bitmap cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
+      body = Bitmap.createScaledBitmap(
+              cBitmap, (int)(MainActivity.dw/(1-type)), (int)(MainActivity.dw/(1-type)), false);
+      cBitmap.recycle();
+  }
+  /*  @Override
     void init2() {
         super.init2();
         int bitmapId = R.drawable.runner_0;//f0;// определяем начальные параметры
         Bitmap cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
         body = Bitmap.createScaledBitmap(
                 cBitmap, (int)(MainActivity.dw/(1-type)), (int)(MainActivity.dw/(1-type)), false);
-        cBitmap.recycle();
+        cBitmap.recycle();*/
 
       /*  bitmapId = R.drawable.back_fire;//f0;// определяем начальные параметры
         cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
@@ -50,7 +58,7 @@ public class Space_station extends Space_object{
         fire_r= Bitmap.createScaledBitmap(
                 cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
         cBitmap.recycle();*/
-    }
+ //   }
 
  /*   @Override
     void draw_2(Paint paint, Canvas canvas, float draw_x, float draw_y, float attach_angle, float attach_x, float attach_y) {
