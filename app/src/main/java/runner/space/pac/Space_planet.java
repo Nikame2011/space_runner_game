@@ -19,9 +19,9 @@ public class Space_planet extends Space_object{
         super(context, ltype, lheal, lx, ly,lspeed_x, lspeed_y);
     }
 
-    void generate_matrix(Float2 offset, float attach_angle, Float2 attach, Byte2 world_position){
+   /* void generate_matrix(Float2 offset, float attach_angle, Float2 attach, Byte2 world_position){
 
-    }
+    }*/
 
     void get_world_position(Byte2 set_world_position){
         world_position=set_world_position;

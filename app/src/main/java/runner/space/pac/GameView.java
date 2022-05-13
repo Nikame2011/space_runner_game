@@ -394,6 +394,7 @@ else        if (FirstFragment.moving) {
 
 
 
+
           /*  if (player.accel_x>0)
             if (player.x - offset_x < dw *3/ 4-dw/12)
                 offset_x = player.x - dw / 2;
@@ -495,8 +496,20 @@ else        if (FirstFragment.moving) {
                     }
                 });
                 t.start();
+            }
+        Thread tt = new Thread(new Runnable() {
+            public void run() {
+                while (remove.size()>0){
+
+                }
+                for (int ind = 0; ind < met.size(); ind++) {
+                    met.get(ind).get_matrix(offset_x,offset_y,-angle,player.x/*+dw/12*/,player.y/*+dw/12*/);
+                }
 
             }
+        });
+        tt.start();
+
             need_leng= (float) Math.sqrt(Math.pow(player.x-stations.get(target).x,2)+Math.pow(player.y-stations.get(target).y,2));
             if (need_leng<=stations.get(target).body.getWidth()/2){
                 gameRunning=false;
@@ -638,7 +651,8 @@ else        if (FirstFragment.moving) {
                 }*/
 
                 for (Space_meteorite m:met){
-                    m.draw(paint, canvas,offset_x,offset_y,-angle,player.x/*+dw/12*/,player.y/*+dw/12*/);
+                    //m.draw(paint, canvas,offset_x,offset_y,-angle,player.x/*+dw/12*/,player.y/*+dw/12*/);
+                    m.alternate_draw(paint, canvas);
                 }
                 Random rand=new Random();
                 for (Float[] f:boom){

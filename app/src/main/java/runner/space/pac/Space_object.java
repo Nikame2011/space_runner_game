@@ -253,18 +253,15 @@ angle-= 360;
     }
 
     void draw(Paint paint, Canvas canvas, float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
-
         float draw_x=x-offset_x-body.getWidth()/2;
         float draw_y=y-offset_y-body.getHeight()/2;
         if (draw_x+body.getWidth()/2>=-MainActivity.dw & draw_x-body.getWidth()/2<=2*MainActivity.dw & draw_y+body.getHeight()/2>=-MainActivity.dw & draw_y<=2*MainActivity.dh-body.getHeight()/2)
         {
             Matrix matrix = new Matrix();
             matrix.setTranslate(draw_x, draw_y);
-
             matrix.preRotate(angle, body.getWidth()/2, body.getHeight()/2);
             matrix.postRotate(attach_angle, attach_x-offset_x, attach_y-offset_y);
             canvas.drawBitmap(body, matrix, paint);
-
         }
        // draw_2(paint, canvas,draw_x,draw_y, attach_angle, attach_x-offset_x, attach_y-offset_y);
     }
@@ -277,8 +274,11 @@ angle-= 360;
             canvas.drawBitmap(body, matrix, paint);
         }
     }
+
     Matrix matrix;
+
     //Matrix get_matrix(float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
+
     void get_matrix(float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
         float draw_x=x-offset_x-body.getWidth()/2;
         float draw_y=y-offset_y-body.getHeight()/2;
