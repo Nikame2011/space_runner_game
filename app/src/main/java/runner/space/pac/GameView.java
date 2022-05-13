@@ -50,7 +50,7 @@ public class GameView extends SurfaceView implements Runnable{
     int n_j;
     int n_e;
     int n_b;
-    int increment=1000/60;
+    int increment=1000000/60;
     int target;
 
     float rec;
@@ -268,6 +268,7 @@ public class GameView extends SurfaceView implements Runnable{
                 meteorid_creator();
                 rolling_inertial();
                 update_hard();
+                //create_matrix(tick);
                 if (tick%(60/cadres)==0)
                     draw();
                 control();
@@ -277,6 +278,7 @@ public class GameView extends SurfaceView implements Runnable{
                 meteorid_creator();
                 update_arcade();
                 if (tick%(60/cadres)==0)
+                    create_matrix(tick);
                     draw();
                 control();
             }
@@ -449,6 +451,7 @@ else        if (FirstFragment.moving) {
 
                 m.update(speed_coef);
 
+
                 if (m.far_away(-offset_x, -offset_y)) {
                     remove.add(ind);
                 } else if (Math.abs(m.y  - player.y ) < dw / 12 + dw / 16) {
@@ -497,18 +500,18 @@ else        if (FirstFragment.moving) {
                 });
                 t.start();
             }
-        Thread tt = new Thread(new Runnable() {
+      /*  Thread tt = new Thread(new Runnable() {
             public void run() {
                 while (remove.size()>0){
 
                 }
                 for (int ind = 0; ind < met.size(); ind++) {
-                    met.get(ind).get_matrix(offset_x,offset_y,-angle,player.x/*+dw/12*/,player.y/*+dw/12*/);
+                    met.get(ind).get_matrix(offset_x,offset_y,-angle,player.x,player.y);
                 }
 
             }
         });
-        tt.start();
+        tt.start();*/
 
             need_leng= (float) Math.sqrt(Math.pow(player.x-stations.get(target).x,2)+Math.pow(player.y-stations.get(target).y,2));
             if (need_leng<=stations.get(target).body.getWidth()/2){
@@ -563,6 +566,7 @@ else        if (FirstFragment.moving) {
         for (int ind = 0; ind < met.size(); ind++) {
             Space_meteorite m = met.get(ind);
             m.update(speed_coef);
+
             if (m.far_away(-offset_x, -offset_y)) {
                 remove.add(ind);
             } else if (Math.abs((m.y + dw / 16) - (player.y + dw / 12)) < dw / 12 + dw / 16) {
@@ -616,6 +620,21 @@ else        if (FirstFragment.moving) {
             game=2;}
     }
 
+    private void create_matrix(int ticker){
+          Thread tt = new Thread(new Runnable() {
+         public void run() {
+             if (ticker%2==0)
+                 for (int ind = 0; ind < met.size(); ind+=2) {
+                     met.get(ind).get_matrix(offset_x,offset_y,-angle,player.x,player.y);
+                 }
+             else
+                 for (int ind = 1; ind < met.size(); ind+=2) {
+                     met.get(ind).get_matrix(offset_x,offset_y,-angle,player.x,player.y);
+                 }
+            }
+           });
+          tt.start();
+    }
     private void draw() {
         try {
             if (surfaceHolder.getSurface().isValid()) {  //проверяем валидный ли surface
@@ -651,8 +670,8 @@ else        if (FirstFragment.moving) {
                 }*/
 
                 for (Space_meteorite m:met){
-                    //m.draw(paint, canvas,offset_x,offset_y,-angle,player.x/*+dw/12*/,player.y/*+dw/12*/);
-                    m.alternate_draw(paint, canvas);
+                    m.draw(paint, canvas,offset_x,offset_y,-angle,player.x/*+dw/12*/,player.y/*+dw/12*/);
+                   // m.alternate_draw(paint, canvas);
                 }
                 Random rand=new Random();
                 for (Float[] f:boom){
@@ -728,7 +747,7 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
 
 
     int dop_inc=1;
-    private void control() { // пауза и контроль количества кадров
+    private void control_old() { // пауза и контроль количества кадров
        /*try {
             gameThread.sleep(12);
         } catch (InterruptedException e) {
@@ -776,6 +795,53 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
         }
     }
 
+    private void control() { // пауза и контроль количества кадров
+       /*try {
+            gameThread.sleep(12);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+        d = new Date();
+
+        if ((float) (d.getTime() - control_date.getTime()) / 50>=1 &tick>0) {
+            frames= (byte) (tick*1000/(float) (d.getTime() - control_date.getTime()));
+            control_date = new Date();
+            tick=0;
+            //dop_inc=increment * frames>60?60/((increment * frames) % 60):0;
+            increment=Math.max(increment * frames / 60, 100);
+
+
+            /*if (cadres-frames>cadres/6)
+                if(increment>1)
+                    increment--;
+                else if(cadres==60){
+                    cadres=30;
+                    speed_coef=2;
+                }
+            if (cadres-frames<-cadres/6 )
+                increment++;*/
+        }
+        else{
+            tick++;
+        }
+
+        //  else{
+        //         byte fr= (byte) (tick*1000/(float) (d.getTime() - control_date.getTime()));
+        //        increment=increment*fr/60>1 ? increment*fr/60 : 1;
+        //   }
+
+        try {
+            //if(dop_inc!=0){
+           //     if(tick%dop_inc==0)
+             //       gameThread.sleep(increment*2);
+            //    else
+               //     gameThread.sleep(increment);}
+           // else
+                gameThread.sleep(increment/1000,increment%1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     private void meteorid_creator(){
         if (met.size()==0& !b) {
             b=true;
@@ -802,6 +868,8 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
                         //m0.init(getContext(),(byte) 0,50+rand.nextInt(50),pos_x-dw/4+rand.nextInt(dw/2),pos_y-dw/4+rand.nextInt(dw/2),spd_x,spd_y);
                         met.add(m0);
                     }
+                    create_matrix(0);
+                    create_matrix(1);
                     b=false;
                     //}
                 }
