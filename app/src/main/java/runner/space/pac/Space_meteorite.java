@@ -24,7 +24,6 @@ public class Space_meteorite extends Space_object{
         speed_angle=(float) (rand.nextFloat()*360*2/40-360/40);
     }
 
-
     ArrayList<Space_meteorite> crusher() {
         ArrayList<Space_meteorite> s=new ArrayList<>();
         if(heal>10)

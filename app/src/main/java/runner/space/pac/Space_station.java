@@ -7,12 +7,14 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
+import androidx.room.Entity;
+
 import java.util.Random;
 
 import runner.space.pac.R;
 
 
-
+@Entity
 public class Space_station extends Space_object{
   /*  Bitmap fire_b;
     Bitmap fire_r;
