@@ -8,7 +8,14 @@ import android.graphics.Paint;
 import static runner.space.pac.MainActivity.dw;
 import static runner.space.pac.MainActivity.dh;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Space_object {
+
+    @PrimaryKey(autoGenerate = true)
+    public long id;
 
     protected float x;// координаты
     protected float y;// координаты

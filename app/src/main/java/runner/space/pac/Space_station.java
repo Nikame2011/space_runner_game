@@ -8,18 +8,22 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.Random;
 
 import runner.space.pac.R;
 
 
-@Entity
+
 public class Space_station extends Space_object{
   /*  Bitmap fire_b;
     Bitmap fire_r;
     Bitmap fire_l;
     Bitmap fire_f;*/
+
+
+
   public Space_station(Context context, byte ltype, int lheal, float lx, float ly, float lspeed_x, float lspeed_y) {
       super(context, ltype, lheal, lx, ly, lspeed_x, lspeed_y);
       int bitmapId = R.drawable.space_station;//f0;// определяем начальные параметры
