@@ -13,6 +13,9 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -79,13 +82,55 @@ public class GameView extends SurfaceView implements Runnable{
 
     ArrayList<Space_station> stations=new ArrayList<>();
 
+    LocalServer ls;
+
     public GameView(Context context) {
         super(context);
         //инициализируем обьекты для рисования
 
         // инициализируем поток
+        boolean isLocal=true;
+        if(isLocal){
+            ls=new LocalServer();
+        }
+
+        try {
+            JSONObject j=new JSONObject();
+            j.put("Type","Login");
+            j.put("Login","player");
+            j.put("Password","1111");
+            ls.resieveMessage(j);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public void localServerTransmit(JSONObject j){
+        if(j!=null){
+            try {
+                switch ((String)j.get("Type")){
+                    case "Login":
+                        if (((String)j.get("Status")).equals("OK") ){
+                            player =(Space_ship) j.get("Player");
+                            target=(int)j.get("Target");
+                        }
+                        else{
+
+                        }
+                        break;
+                    case "newObjects":
+                        met.addAll((ArrayList<Space_meteorite>)j.get("Meteorites"));
+                        break;
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public  void init(){
@@ -225,25 +270,23 @@ public class GameView extends SurfaceView implements Runnable{
                     //matrix.preRotate(angle, body.getWidth()/2, body.getHeight()/2);
                     // matrix.postRotate(-angle, player.x+dw/12-offset_x, player.y+dw/12-offset_y);
                 }
-
-
         gui=new GUI(getContext());
         offset_x=-dw/2;
         offset_y=-dh+dw/2;
-        player=new Space_ship(getContext(),(byte) 0,300+rand.nextInt(200),0,0,0,0);
+        //player=new Space_ship( "0",300+rand.nextInt(200),0,0,0,0);
         //player.init(getContext(),(byte) 0,300+rand.nextInt(200),0,0,0,0);
 
-        Space_station s= new Space_station(getContext(), (byte) 0,100000,0,0,0,0);
+      /*  Space_station s= new Space_station("0",100000,0,0,0,0);
         //s.init(getContext(), (byte) 0,100000,0,0,0,0);
         stations.add(s);
 
         long target_y=-10000-rand.nextInt(1000);
         long target_x= (long) Math.sqrt(12000*12000-target_y*target_y);
 
-        s= new Space_station(getContext(), (byte) 0,100000,target_x,target_y,0,0);
+        s= new Space_station( "0",100000,target_x,target_y,0,0);
         //s.init(getContext(), (byte) 0,100000,target_x,target_y,0,0);
-        stations.add(s);
-        target=stations.size()-1;
+        stations.add(s);*/
+        //target=stations.size()-1;
 
        /* for(int h=0; h<dh;h+=dh/10){
             for (int m=0; m<1+rand.nextInt(3);m++){
@@ -256,14 +299,41 @@ public class GameView extends SurfaceView implements Runnable{
         control_date = new Date();
     }
 
+   // ArrayList<Space_meteorite> n=new ArrayList<>();
 
     @Override
     public void run() {
 
         init();
-
         if (MainActivity.game_mode.equals("hard"))
             while (gameRunning) {
+
+     /*           j=new JSONObject();
+                try {
+                   // j.put("stars",stars);
+                    j.put("meteorid",met.clone());
+
+                   // ArrayList<> nn=j.get("meteorid");
+                    n.clear();
+                    n= (ArrayList<Space_meteorite>) j.get("meteorid");
+                 //   Class c =j.get("meteorid").getClass();
+                 //   Class cc =j.get("meteorid").getClass();
+                  /*  JSONArray jj=j.getJSONArray("meteorid");
+
+                    Gson gson = new GsonBuilder().create();
+                    n.clear();
+
+                    for (int i=0;0<jj.length();i++) {
+                        n.add(gson.fromJson(jj.get(i).toString(),Space_meteorite.class ));
+                    }*/
+
+                    //Gson gson = new GsonBuilder().create();
+                 //ArrayList<Space_meteorite> n= gson.fromJson(j.getJSONObject("meteorid").toString(),Space_meteorite.class );
+           /*     } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+*/
+
 
                 meteorid_creator();
                 rolling_inertial();
@@ -452,7 +522,7 @@ else        if (FirstFragment.moving) {
                 m.update(speed_coef);
 
 
-                if (m.far_away(-offset_x, -offset_y)) {
+                if (m.isFarAway(-offset_x, -offset_y)) {
                     remove.add(ind);
                 } else if (Math.abs(m.y  - player.y ) < dw / 12 + dw / 16) {
                     if (Math.abs(m.x  - player.x ) < dw / 12 + dw / 16) {
@@ -514,7 +584,7 @@ else        if (FirstFragment.moving) {
         tt.start();*/
 
             need_leng= (float) Math.sqrt(Math.pow(player.x-stations.get(target).x,2)+Math.pow(player.y-stations.get(target).y,2));
-            if (need_leng<=stations.get(target).body.getWidth()/2){
+            if (need_leng<=(float)Resources.getObject(Space_station.class,"0").get("size")){
                 gameRunning=false;
                 game=2;}
     //    }
@@ -567,7 +637,7 @@ else        if (FirstFragment.moving) {
             Space_meteorite m = met.get(ind);
             m.update(speed_coef);
 
-            if (m.far_away(-offset_x, -offset_y)) {
+            if (m.isFarAway(-offset_x, -offset_y)) {
                 remove.add(ind);
             } else if (Math.abs((m.y + dw / 16) - (player.y + dw / 12)) < dw / 12 + dw / 16) {
                 if (Math.abs((m.x + dw / 16) - (player.x + dw / 12)) < dw / 12 + dw / 16) {
@@ -615,7 +685,7 @@ else        if (FirstFragment.moving) {
             t.start();
         }
         need_leng= (float) Math.sqrt(Math.pow(player.x-stations.get(target).x,2)+Math.pow(player.y-stations.get(target).y,2));
-        if (need_leng<=stations.get(target).body.getWidth()/2){
+        if (need_leng<=(float)Resources.getObject(Space_station.class,"0").get("size")){
             gameRunning=false;
             game=2;}
     }
@@ -635,6 +705,7 @@ else        if (FirstFragment.moving) {
            });
           tt.start();
     }
+
     private void draw() {
         try {
             if (surfaceHolder.getSurface().isValid()) {  //проверяем валидный ли surface
@@ -744,7 +815,6 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
             }
         }
     }
-
 
     int dop_inc=1;
     private void control_old() { // пауза и контроль количества кадров
@@ -859,12 +929,12 @@ canvas.drawLine(player.x-offset_x,player.y-offset_y,player.x-offset_x-w,player.y
                     float spd_x = (float) ((player.x - pos_x) / 300+player.speed_x*1.0);
                     float spd_y = (float) ((player.y - pos_y) / 300+player.speed_y*1.0);
                     Random rand=new Random();
-                    Space_meteorite m0 = new Space_meteorite(getContext(), (byte) 0, 500 + rand.nextInt(50), pos_x, pos_y, spd_x, spd_y);
+                    Space_meteorite m0 = new Space_meteorite( "0", 500 + rand.nextInt(50), pos_x, pos_y, spd_x, spd_y);
                     //m0.init(getContext(), (byte) 0, 500 + rand.nextInt(50), pos_x, pos_y, spd_x, spd_y);
                     met.add(m0);
 
                     for (int m=0; m<5+rand.nextInt(30);m++){
-                        m0=new Space_meteorite(getContext(),(byte) 0,50+rand.nextInt(50),pos_x-dw/4+rand.nextInt(dw/2),pos_y-dw/4+rand.nextInt(dw/2),spd_x,spd_y);
+                        m0=new Space_meteorite( "0",50+rand.nextInt(50),pos_x-dw/4+rand.nextInt(dw/2),pos_y-dw/4+rand.nextInt(dw/2),spd_x,spd_y);
                         //m0.init(getContext(),(byte) 0,50+rand.nextInt(50),pos_x-dw/4+rand.nextInt(dw/2),pos_y-dw/4+rand.nextInt(dw/2),spd_x,spd_y);
                         met.add(m0);
                     }

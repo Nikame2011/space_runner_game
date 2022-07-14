@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import java.util.Random;
 
@@ -24,13 +22,9 @@ public class Space_station extends Space_object{
 
 
 
-  public Space_station(Context context, byte ltype, int lheal, float lx, float ly, float lspeed_x, float lspeed_y) {
-      super(context, ltype, lheal, lx, ly, lspeed_x, lspeed_y);
-      int bitmapId = R.drawable.space_station;//f0;// определяем начальные параметры
-      Bitmap cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
-      body = Bitmap.createScaledBitmap(
-              cBitmap, (int)(MainActivity.dw/(1-type)), (int)(MainActivity.dw/(1-type)), false);
-      cBitmap.recycle();
+  public Space_station(String type, int heal, float x, float y, float speed_x, float speed_y) {
+      super(type, heal, x, y, speed_x, speed_y);
+
   }
   /*  @Override
     void init2() {

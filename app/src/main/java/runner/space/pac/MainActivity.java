@@ -87,9 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cont=this;
+
         dw= getResources().getDisplayMetrics().widthPixels;//получаем ширину экрана
         dh= getResources().getDisplayMetrics().heightPixels;//получаем ширину экрана
-
+        Resources.init(getApplicationContext());
         gw= new GameView(this);
 
         ConstraintLayout gameLayout=(ConstraintLayout) findViewById(R.id.GL); // находим gameLayout

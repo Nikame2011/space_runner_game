@@ -1,8 +1,6 @@
 package runner.space.pac;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -12,15 +10,16 @@ import java.util.Random;
 //import runner.space.pac.R;
 
 public class Space_ship extends Space_object{
-    Bitmap fire_b;
+ /*   Bitmap fire_b;
     Bitmap fire_r;
     Bitmap fire_l;
-    Bitmap fire_f;
+    Bitmap fire_f;*/
 
-    public Space_ship(Context context, byte ltype, int lheal, float lx, float ly, float lspeed_x, float lspeed_y){
-        super(context, ltype, lheal, lx, ly,lspeed_x, lspeed_y);
+    public Space_ship(/*Context context, */String type,int heal, float x, float y, float speed_x, float speed_y){
+        super(type, heal, x, y,speed_x, speed_y);
+/*
         int bitmapId = R.drawable.runner_0;//f0;// определяем начальные параметры
-        Bitmap cBitmap = BitmapFactory.decodeResource(con.getResources(), bitmapId);
+        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), bitmapId);
         body = Bitmap.createScaledBitmap(
                 cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
         cBitmap.recycle();
@@ -49,7 +48,7 @@ public class Space_ship extends Space_object{
                 cBitmap, (int)(MainActivity.dw/(6-type)), (int)(MainActivity.dw/(6-type)), false);
         cBitmap.recycle();
 
-        max_speed=30;
+        max_speed=30;*/
     }
 
   /*  @Override
@@ -92,16 +91,17 @@ public class Space_ship extends Space_object{
    // void draw_2(Paint paint, Canvas canvas,float draw_x,float draw_y,float attach_angle,float attach_x,float attach_y) {
      //   super.draw_2(paint, canvas, draw_x,draw_y, attach_angle, attach_x, attach_y);
     void draw   (Paint paint, Canvas canvas, float offset_x,float offset_y,float attach_angle,float attach_x,float attach_y){
-        super.draw   (paint, canvas, offset_x,offset_y,attach_angle,attach_x,attach_y);
-        float draw_x=x-offset_x-body.getWidth()/2;
-        float draw_y=y-offset_y-body.getHeight()/2;
+        super.draw(paint, canvas, offset_x,offset_y,attach_angle,attach_x,attach_y);
+        float size=(float)Resources.getObject(this.getClass(),type).get("size");
+        float draw_x=x-offset_x-size;
+        float draw_y=y-offset_y-size;
         if(accel_x<0){
             Random rand=new Random();
             for (int i=0;i<5+rand.nextInt(5);i++) {
                 Matrix matrix = new Matrix();
                 matrix.setTranslate(draw_x - 1 + rand.nextInt(6)*3, draw_y+(-1+ rand.nextInt(2))*2);
                 matrix.postRotate(attach_angle, attach_x, attach_y);
-                canvas.drawBitmap(fire_r, matrix, paint);
+                canvas.drawBitmap((Bitmap)Resources.getObject(this.getClass(),type).get("fire_r"), matrix, paint);
             }
         }
         else if(accel_x>0){
@@ -110,7 +110,7 @@ public class Space_ship extends Space_object{
                 Matrix matrix = new Matrix();
                 matrix.setTranslate(draw_x + 1 - rand.nextInt(6)*3, draw_y+(-1+ rand.nextInt(2))*2);
                 matrix.postRotate(attach_angle, attach_x, attach_y);
-                canvas.drawBitmap(fire_l, matrix, paint);
+                canvas.drawBitmap((Bitmap)Resources.getObject(this.getClass(),type).get("fire_l"), matrix, paint);
             }
         }
 
@@ -120,7 +120,7 @@ public class Space_ship extends Space_object{
                 Matrix matrix = new Matrix();
                 matrix.setTranslate(draw_x - 1 + rand.nextInt(2)*2, draw_y-2+ rand.nextInt(6)*3);
                 matrix.postRotate(attach_angle, attach_x, attach_y);
-                canvas.drawBitmap(fire_b, matrix, paint);
+                canvas.drawBitmap((Bitmap)Resources.getObject(this.getClass(),type).get("fire_b"), matrix, paint);
             }
         }
         else if(accel_y>0){
@@ -129,7 +129,7 @@ public class Space_ship extends Space_object{
                 Matrix matrix = new Matrix();
                 matrix.setTranslate(draw_x - 1 + rand.nextInt(2)*2, draw_y+2- rand.nextInt(6)*3);
                 matrix.postRotate(attach_angle, attach_x, attach_y);
-                canvas.drawBitmap(fire_f, matrix, paint);
+                canvas.drawBitmap((Bitmap) Resources.getObject(this.getClass(),type).get("fire_f"), matrix, paint);
             }
         }
     }
@@ -154,7 +154,7 @@ float targ_angle=0;
         if (accel_y==0){
             if ((speed_y*cos-speed_x*sin)/(35)>0.0005)
                 accel_y=-(speed_y*cos-speed_x*sin)/(35);
-            else if((speed_y*cos-speed_x*sin)<-max_speed*0.6)
+            else if((speed_y*cos-speed_x*sin)<=(float)Resources.getObject(this.getClass(),type).get("max_speed")*0.6)
                 accel_y=-(speed_y*cos-speed_x*sin)/(35);
         }
     }
@@ -166,7 +166,8 @@ float targ_angle=0;
         float cos= (float) Math.cos(aan);
         float sin= (float) Math.sin(aan);
 
-        if(Math.sqrt(Math.pow(speed_x-accel_y*sin*speed_coefficient,2)+Math.pow(speed_y+accel_y*cos*speed_coefficient,2))<=max_speed){
+        if(Math.sqrt(Math.pow(speed_x-accel_y*sin*speed_coefficient,2)+Math.pow(speed_y+accel_y*cos*speed_coefficient,2))
+                <=(float)Resources.getObject(this.getClass(),type).get("max_speed")){
             speed_x+=-accel_y*sin*speed_coefficient;
             speed_y+=accel_y*cos*speed_coefficient;
         }
@@ -174,7 +175,8 @@ float targ_angle=0;
         {
             accel_y=0;
         }
-        if(Math.sqrt(Math.pow(speed_x+accel_x*cos*speed_coefficient,2)+Math.pow(speed_y+accel_x*sin*speed_coefficient,2))<=max_speed){
+        if(Math.sqrt(Math.pow(speed_x+accel_x*cos*speed_coefficient,2)+Math.pow(speed_y+accel_x*sin*speed_coefficient,2))
+                <=(float)Resources.getObject(this.getClass(),type).get("max_speed")){
             speed_x+=accel_x*cos*speed_coefficient;
             speed_y+=accel_x*sin*speed_coefficient;
         }
@@ -192,8 +194,6 @@ float targ_angle=0;
         else if (angle<-360){
             angle+= 360;
         }
-
-
     }
   /*  void arcade_stopper(byte speed_coef) {
 

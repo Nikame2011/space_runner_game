@@ -15,8 +15,8 @@ public class Space_planet extends Space_object{
 
     /////для каждой орбиты:
     ArrayList<orbit> orbits;
-    public Space_planet(Context context, byte ltype, int lheal, float lx, float ly,float lspeed_x, float lspeed_y){
-        super(context, ltype, lheal, lx, ly,lspeed_x, lspeed_y);
+    public Space_planet( String ltype, int lheal, float lx, float ly,float lspeed_x, float lspeed_y){
+        super( ltype, lheal, lx, ly,lspeed_x, lspeed_y);
     }
 
    /* void generate_matrix(Float2 offset, float attach_angle, Float2 attach, Byte2 world_position){

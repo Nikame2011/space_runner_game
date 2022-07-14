@@ -39,7 +39,7 @@ public class GUI {
         paint.setTextSize((float) (dw / 20.0));
 
 
-        canvas.drawRect(dw / 4 , dh- dw / 50 , dw / 4 + (dw*2 / 4) * player.heal / player.max_heal, dh, paint);
+        canvas.drawRect(dw / 4 , dh- dw / 50 , dw / 4 + (dw*2 / 4) * player.heal / (int)Resources.getObject(Space_ship.class,player.type).get("max_heal"), dh, paint);
 
 
         //canvas.drawRect(dw / 8 + dw / 50, dh- dw / 16 + dw / 200, dw / 8 + dw / 50 + (dw*3 / 4 - dw / 25) * player.heal / player.max_heal, dh-dw/200, paint);
