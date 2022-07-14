@@ -54,9 +54,18 @@ public class LocalServer {
         //s.init(getContext(), (byte) 0,100000,target_x,target_y,0,0);
         stations.add(s);
         target=stations.size()-1;
+
+        for (int i=0;i<100+rand.nextInt(900);i++){
+        //rand=new Random();
+        Space_meteorite m0 = new Space_meteorite( "0", 500 + rand.nextInt(50), (-500+rand.nextInt(1000))*5, (-500+rand.nextInt(1000))*5, 0, 0);
+        //m0.init(getContext(), (byte) 0, 500 + rand.nextInt(50), pos_x, pos_y, spd_x, spd_y);
+        met.add(m0);
+        }
     }
 
     public void resieveMessage(JSONObject j){
+        new Thread(new Runnable(){
+            public void run() {
         if(j!=null){
             try {
                 switch ((String)j.get("Type")){
@@ -112,6 +121,8 @@ public class LocalServer {
             }
 
         }
+            }
+        }).start();
     }
 
 }

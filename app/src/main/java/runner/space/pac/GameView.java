@@ -103,10 +103,6 @@ public class GameView extends SurfaceView implements Runnable{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        gameThread = new Thread(this);
-        gameThread.start();
     }
 
     public void localServerTransmit(JSONObject j){
@@ -117,12 +113,19 @@ public class GameView extends SurfaceView implements Runnable{
                         if (((String)j.get("Status")).equals("OK") ){
                             player =(Space_ship) j.get("Player");
                             target=(int)j.get("Target");
+                            stations.addAll((ArrayList<Space_station>)j.get("Stations"));
+
+                            gameThread = new Thread(this);
+                            gameThread.start();
                         }
                         else{
 
                         }
                         break;
                     case "newObjects":
+                        ArrayList toAdd=(ArrayList<Space_meteorite>)j.get("Meteorites");
+                        //TODO если уже есть в листе, ДОБАВЛЯТЬ НЕ НУЖНО
+                        //toAdd.stream().
                         met.addAll((ArrayList<Space_meteorite>)j.get("Meteorites"));
                         break;
                 }
@@ -335,7 +338,7 @@ public class GameView extends SurfaceView implements Runnable{
 */
 
 
-                meteorid_creator();
+                //meteorid_creator();
                 rolling_inertial();
                 update_hard();
                 //create_matrix(tick);
