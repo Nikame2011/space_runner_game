@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -99,6 +100,8 @@ public class GameView extends SurfaceView implements Runnable{
             j.put("Type","Login");
             j.put("Login","player");
             j.put("Password","1111");
+            j.put("dw",dw);
+            j.put("dh",dh);
             ls.resieveMessage(j);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -123,10 +126,20 @@ public class GameView extends SurfaceView implements Runnable{
                         }
                         break;
                     case "newObjects":
-                        ArrayList toAdd=(ArrayList<Space_meteorite>)j.get("Meteorites");
-                        //TODO если уже есть в листе, ДОБАВЛЯТЬ НЕ НУЖНО
-                        //toAdd.stream().
-                        met.addAll((ArrayList<Space_meteorite>)j.get("Meteorites"));
+                       ArrayList<Space_meteorite> toAdd=(ArrayList<Space_meteorite>)j.get("Meteorites");
+                       for(Space_meteorite s:toAdd){
+                           if(met.contains(s)){
+                               //TODO вот это полная лажа, нужно использовать что-то типа хешмап,
+                               // чтобы можно было присвоить уникальные идентификаторы и искать по ним,
+                               // иначе изменение например координат будет приводить к дублированию объектов
+                               //met.remove(s);
+                               //met.add(s);
+                           }
+                           else {
+                               met.add(s);
+                           }
+                       }
+                       // met.addAll((ArrayList<Space_meteorite>)j.get("Meteorites"));
                         break;
                 }
 
@@ -348,7 +361,7 @@ public class GameView extends SurfaceView implements Runnable{
             }
         else if (MainActivity.game_mode.equals("arcade"))
             while (gameRunning) {
-                meteorid_creator();
+                //meteorid_creator();
                 update_arcade();
                 if (tick%(60/cadres)==0)
                     create_matrix(tick);
@@ -585,6 +598,16 @@ else        if (FirstFragment.moving) {
             }
         });
         tt.start();*/
+
+        try {
+            JSONObject j=new JSONObject();
+            j.put("Type","Player_info");
+            j.put("Login","player");
+            j.put("player",player);
+            ls.resieveMessage(j);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
             need_leng= (float) Math.sqrt(Math.pow(player.x-stations.get(target).x,2)+Math.pow(player.y-stations.get(target).y,2));
             if (need_leng<=(float)Resources.getObject(Space_station.class,"0").get("size")){
